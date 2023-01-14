@@ -22,7 +22,10 @@ function MyList() {
       'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList'
     )
       .then((res) => res.json())
-      .then((obj) => dispatch(replaceList(obj.myListData)))
+      .then((obj) => {
+        console.log('ici');
+        dispatch(replaceList(obj.myListData));
+      })
       .catch((error) => console.dir(error));
   }, []);
 
