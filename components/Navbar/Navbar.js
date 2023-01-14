@@ -38,6 +38,7 @@ function Navbar({ position, refForm }) {
     try {
       await disconnectUser();
       dispatch(replaceList([]));
+      Cookies.remove('token');
     } catch (error) {
       redirectionPage('/404');
     }
@@ -72,15 +73,6 @@ function Navbar({ position, refForm }) {
 
   const handleFocus = () => {
     setFocus(true);
-  };
-
-  const handleLogOut = async () => {
-    try {
-      await signOut();
-      Cookies.remove('token');
-    } catch (error) {
-      console.dir(error);
-    }
   };
 
   return (
@@ -148,7 +140,7 @@ function Navbar({ position, refForm }) {
             placeholder='Films ou séries'
           />
         </form>
-        <button onClick={handleLogOut}>
+        <button onClick={signOut}>
           <IoLogOutOutline />
         </button>
       </div>
