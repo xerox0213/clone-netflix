@@ -1,0 +1,58 @@
+.sliderContainer {
+  position: relative;
+  padding-left: clamp(10px, 4vw, 60px);
+}
+
+.sliderContainer:hover>button {
+  visibility: visible;
+}
+
+.slider {
+  position: relative;
+  width: calc(100% - max(10px, min(60px, 4vw)));
+  z-index: 1;
+  transition: z-index 0s .5s;
+}
+
+.slider:hover {
+  transition: z-index .5s;
+  z-index: 10000;
+}
+
+.innerSlider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  transition: transform 0.7s ease;
+}
+
+.btnPrevSlider,
+.btnNextSlider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100000;
+  font-size: 60px;
+  width: max(10px, min(60px, 4vw));
+  color: #f1f1f1;
+  border: none;
+  background-color: transparent;
+  visibility: hidden;
+}
+
+.btnPrevSlider:hover,
+.btnNextSlider:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btnPrevSlider {
+  left: 0;
+}
+
+.btnNextSlider {
+  right: 0;
+}

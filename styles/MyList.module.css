@@ -1,0 +1,21 @@
+.title {
+  font-size: clamp(30px, 3.5vw, 35px);
+  font-weight: 400;
+  background-color: #141414;
+  padding: 10px 0 10px 2.5px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - max(10px, min(60px, 4vw)));
+  row-gap: 35px;
+  padding-bottom: 200px;
+  padding-top: 62px;
+}
+
+.myList {
+  position: relative;
+  margin-top: 10px;
+  padding-left: clamp(10px, 4vw, 60px);
+}

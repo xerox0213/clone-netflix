@@ -1,0 +1,59 @@
+.heroHeaderContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.heroHeaderContent {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  padding-left: calc(clamp(10px, 4vw, 60px) + 2.5px);
+  width: clamp(50%, 70vw, 600px);
+  transform: translateY(-50%);
+}
+
+.heroHeaderContainer img {
+  object-fit: cover;
+  object-position: top;
+}
+
+.heroHeaderTitle {
+  font-size: clamp(30px, 5vw, 50px);
+  margin-bottom: 10px;
+}
+
+.resumeTextContent {
+  font-size: clamp(14px, 2vw, 20px);
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.heroHeaderBtnsContainer {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 20px;
+}
+
+.playBtnContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  min-width: 100px;
+  padding: clamp(10px, 2vw, 16px);
+  font-size: clamp(12px, 2vw, 20px);
+  border-radius: 5px;
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+  font-family: inherit;
+}
+
+.playBtnContent {
+  background-color: white;
+}
+
+.playBtnContent:hover {
+  background-color: lightgray;
+}

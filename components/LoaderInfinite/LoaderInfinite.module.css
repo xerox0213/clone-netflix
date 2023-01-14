@@ -1,0 +1,19 @@
+.loader {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top: 3px solid red;
+  border-right: 3px solid red;
+  animation: loopLoader 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+
+@keyframes loopLoader {
+  to {
+    transform: rotate(360deg);
+  }
+}

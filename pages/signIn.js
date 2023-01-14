@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Logo from '../public/assets/logo.png';
+import Logo from '/public/assets/logo.png';
+import useSignIn from '../hooks/useSignIn';
 import styles from '/styles/Form.module.css';
-import useRegister from '../hooks/useRegister';
-import BackgroundImage from '../public/assets/background.jpg';
+import BackgroundImage from '/public/assets/background.jpg';
 
-function Register() {
+function SignIn() {
   const [
     errorInputs,
     boxError,
@@ -14,7 +14,8 @@ function Register() {
     handleSubmit,
     addInputRef,
     currentUser,
-  ] = useRegister();
+  ] = useSignIn();
+
   const router = useRouter();
 
   if (currentUser) {
@@ -24,23 +25,28 @@ function Register() {
 
   return (
     <>
-      <Image className={styles.logo} src={Logo} alt='logo du service' />
+      <Image
+        priority
+        className={styles.logo}
+        src={Logo}
+        alt='logo du service'
+      />
       <div className={styles.backgroundContainer}>
-        <Image src={BackgroundImage} alt='image de fond' />
+        <Image src={BackgroundImage} alt='image de fond' priority />
         <div className={styles.backgroundOpacity}></div>
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h1 className={styles.titleForm}>Inscription</h1>
+        <h1 className={styles.titleForm}>Connexion</h1>
         {boxError.visible && (
           <p className={styles.messageBoxError}>{boxError.message}</p>
         )}
         <div className={styles.inputGroupForm}>
-          <label htmlFor='input-email-register'>Email</label>
+          <label htmlFor='input-email-signIn'>Email</label>
           <input
             ref={addInputRef}
             onBlur={handleBlur}
             type='text'
-            id='input-email-register'
+            id='input-email-signIn'
             className={
               errorInputs.emailInput ? styles.errorInputForm : undefined
             }
@@ -52,46 +58,27 @@ function Register() {
           )}
         </div>
         <div className={styles.inputGroupForm}>
-          <label htmlFor='input-pwd-register'>Mot de passe</label>
+          <label htmlFor='input-pwd-signIn'>Mot de passe</label>
           <input
             ref={addInputRef}
             onBlur={handleBlur}
             type='password'
-            id='input-pwd-register'
+            id='input-pwd-signIn'
             className={errorInputs.pwdInput ? styles.errorInputForm : undefined}
           />
           {errorInputs.pwdInput && (
             <p className={styles.messageErrorInput}>
-              Minimum 8 caractères, 1 majuscule et 1 chiffre.
+              Le mot de passe doit contenir entre 8 et 60 caractères.
             </p>
           )}
         </div>
-        <div className={styles.inputGroupForm}>
-          <label htmlFor='input-confirm-pwd-register'>
-            Confirmer le mot de passe
-          </label>
-          <input
-            ref={addInputRef}
-            onBlur={handleBlur}
-            type='password'
-            id='input-confirm-pwd-register'
-            className={
-              errorInputs.confirmPwdInput ? styles.errorInputForm : undefined
-            }
-          />
-          {errorInputs.confirmPwdInput && (
-            <p className={styles.messageErrorInput}>
-              Pas de mot de passe ou ils ne correspondent pas.
-            </p>
-          )}
-        </div>
-        <button>S'inscrire</button>
+        <button>Se connecter</button>
         <p className={styles.infoForm}>
-          Déjà un compte Nasflix ? <Link href='/signIn'>Connectez-vous.</Link>
+          Nouveau sur Nasflix ? <Link href='/'>Inscrivez-vous.</Link>
         </p>
       </form>
     </>
   );
 }
 
-export default Register;
+export default SignIn;

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
+  reactStrictMode: false,
+  images: {
+    domains: ['image.tmdb.org', 'tmdb.org', 'themoviedb.org'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

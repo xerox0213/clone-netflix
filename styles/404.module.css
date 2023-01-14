@@ -1,0 +1,23 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  row-gap: 20px;
+  overflow: hidden;
+}
+
+.logo {
+  width: clamp(250px, 40vw, 500px);
+  height: auto;
+}
+
+.title {
+  font-size: clamp(30px, 2.5vw, 40px);
+}
+
+.link {
+  font-size: clamp(15px, 2.5vw, 20px);
+  color: white;
+}

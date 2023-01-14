@@ -1,0 +1,13 @@
+.searchSection {
+  margin: 200px 0 200px;
+  padding-left: calc(clamp(10px, 4vw, 60px));
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - max(10px, min(60px, 4vw)));
+  row-gap: 35px;
+  /* column-gap: 5px; */
+  padding-bottom: 15px;
+}
