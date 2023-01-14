@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
 
     // Récupère les films et séries ajouté à ma liste dans Firebase
     const myListDataRequest = await fetch(
-      'http://localhost:3000/api/database_api/getDataList',
+      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
       {
         method: 'GET',
         headers: {

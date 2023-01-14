@@ -18,7 +18,9 @@ function MyList() {
   }
   // Synchronisation des données venant de mon API avec le state redux pour avoir un qui se réactualise lorsqu'on ajoute ou supprime un élément
   useEffect(() => {
-    fetch('http://localhost:3000/api/database_api/getDataList')
+    fetch(
+      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList'
+    )
       .then((res) => res.json())
       .then((obj) => dispatch(replaceList(obj.myListData)))
       .catch((error) => console.dir(error));
