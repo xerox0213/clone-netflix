@@ -62,7 +62,7 @@ function ModalBox({ infoContentModalBox, isLocked, myListData }) {
           }),
         };
         await fetch(
-          'http://localhost:3000/api/database_api/addDataList',
+          'https://clone-netflix-lovat-tau.vercel.app/api/database_api/addDataList',
           myInit
         );
         dispatch(addElement(infoContentModalBox));
@@ -83,7 +83,7 @@ function ModalBox({ infoContentModalBox, isLocked, myListData }) {
           }),
         };
         await fetch(
-          'http://localhost:3000/api/database_api/removeDataList',
+          'https://clone-netflix-lovat-tau.vercel.app/api/database_api/removeDataList',
           myInit
         );
         dispatch(deleteElement(infoContentModalBox.data.id));
