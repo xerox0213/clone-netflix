@@ -13,7 +13,7 @@ function useSignIn() {
     pwdInput: false,
   });
 
-  const { connectUser, currentUser } = useContext(UserContext);
+  const { connectUser, currentUser, setCurrentUser } = useContext(UserContext);
 
   const refInputs = useRef([]);
 
@@ -79,6 +79,7 @@ function useSignIn() {
       setBoxError({ visible: false, message: '' });
       const uid = user.user.uid;
       Cookies.set('token', uid);
+      setCurrentUser(user);
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
         setBoxError({

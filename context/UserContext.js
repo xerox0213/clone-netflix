@@ -1,28 +1,14 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
 import { auth } from '../firebase-config';
 export const UserContext = createContext(null);
 
 function UserContextProvider({ children }) {
-  const [dataIsLoaded, setDataIsLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    const unobserve = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
-      setDataIsLoaded(true);
-    });
-    return unobserve;
-  }, []);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -36,9 +22,15 @@ function UserContextProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ currentUser, createUser, connectUser, disconnectUser }}
+      value={{
+        currentUser,
+        createUser,
+        connectUser,
+        disconnectUser,
+        setCurrentUser,
+      }}
     >
-      {dataIsLoaded && children}
+      {children}
     </UserContext.Provider>
   );
 }

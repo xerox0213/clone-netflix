@@ -12,7 +12,7 @@ function useRegister() {
     pwdInput: false,
     confirmPwdInput: false,
   });
-  const { createUser, currentUser } = useContext(UserContext);
+  const { createUser, currentUser, setCurrentUser } = useContext(UserContext);
   const inputsRef = useRef([]);
 
   const addInputRef = (input) => {
@@ -77,6 +77,8 @@ function useRegister() {
         }
       );
       Cookies.set('token', uid);
+      setCurrentUser(user);
+      setDataIsLoaded(true);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setBoxError({
