@@ -1,18 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Cookies from 'js-cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { genres } from '../../genres';
 import { useDispatch } from 'react-redux';
 import styles from '../Box/Box.module.css';
-import { UserContext } from '../../context/UserContext';
 import InfoButton from '../InfoButton/InfoButton';
 import { IoPlay, IoAdd, IoCheckmark } from 'react-icons/io5';
 import { addElement, deleteElement } from '../../store/redux';
-import { useState, useEffect, useRef, memo, useContext } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 
 function ModalBox({ infoContentModalBox, isLocked, myListData }) {
-  const { currentUser } = useContext(UserContext);
-
   const [isAddToMyList, setIsAddToMyList] = useState(() => {
     const index = myListData.findIndex(
       (elem) => elem.data.id === infoContentModalBox.data.id
@@ -57,12 +55,12 @@ function ModalBox({ infoContentModalBox, isLocked, myListData }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            uid: currentUser.uid,
             obj: infoContentModalBox,
           }),
         };
+        console.log(Cookies.get('token'));
         await fetch(
-          'https://clone-netflix-lovat-tau.vercel.app/api/database_api/addDataList',
+          'http://localhost:3000/api/database_api/addDataList',
           myInit
         );
         dispatch(addElement(infoContentModalBox));
@@ -78,12 +76,11 @@ function ModalBox({ infoContentModalBox, isLocked, myListData }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            uid: currentUser.uid,
             obj: infoContentModalBox,
           }),
         };
         await fetch(
-          'https://clone-netflix-lovat-tau.vercel.app/api/database_api/removeDataList',
+          'http://localhost:3000/api/database_api/removeDataList',
           myInit
         );
         dispatch(deleteElement(infoContentModalBox.data.id));

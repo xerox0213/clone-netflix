@@ -1,23 +1,13 @@
-import { useContext } from 'react';
-import { useRouter } from 'next/router';
 import { Waypoint } from 'react-waypoint';
 import styles from '/styles/Home.module.css';
 import useObserver from '../hooks/useObserver';
-import { UserContext } from '../context/UserContext';
 import HeroHeader from '../components/HeroHeader/HeroHeader';
 import SectionSlider from '../components/SectionSlider/SectionSlider';
 import LoaderInfinite from '/components/LoaderInfinite/LoaderInfinite';
 
 function Tv(props) {
-  const { currentUser } = useContext(UserContext);
   const [state, fetchAPI, stateLoader] = useObserver(props.totalPages, 'tv');
   const derivenState = [...props.tvData, ...state];
-  const router = useRouter();
-
-  if (!currentUser) {
-    router.push('/signIn');
-    return;
-  }
 
   return (
     <>
@@ -49,7 +39,7 @@ export async function getServerSideProps({ req }) {
 
     // Récupère les films et séries ajouté à ma liste depuis le fichier JSON
     const myListDataRequest = await fetch(
-      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
+      'http://localhost:3000/api/database_api/getDataList',
       {
         method: 'GET',
         headers: {

@@ -1,20 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
-import React, { useEffect, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
-import SmallLogo from '../../public/assets/small-logo.png';
-import { IoSearchOutline, IoLogOutOutline } from 'react-icons/io5';
-import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { replaceList } from '../../store/redux';
+import React, { useEffect, useState } from 'react';
+import SmallLogo from '../../public/assets/small-logo.png';
+import { IoSearchOutline, IoLogOutOutline } from 'react-icons/io5';
 
 function Navbar({ position, refForm }) {
   const [scrollNavbar, setScrollNavbar] = useState(false);
   const [focus, setFocus] = useState(false);
-  const { disconnectUser } = useContext(UserContext);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -36,9 +32,9 @@ function Navbar({ position, refForm }) {
 
   const signOut = async () => {
     try {
-      await disconnectUser();
+      await fetch('/api/user_api/logout');
       dispatch(replaceList([]));
-      Cookies.remove('token');
+      redirectionPage('/signIn');
     } catch (error) {
       redirectionPage('/404');
     }

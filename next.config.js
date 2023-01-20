@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ['image.tmdb.org', 'tmdb.org', 'themoviedb.org'],
   },
+  pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
 };
 
 module.exports = nextConfig;

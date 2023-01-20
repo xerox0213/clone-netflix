@@ -1,20 +1,8 @@
-import { useContext } from 'react';
-import { useRouter } from 'next/router';
 import styles from '/styles/Home.module.css';
-import { UserContext } from '../context/UserContext';
 import HeroHeader from '../components/HeroHeader/HeroHeader';
 import SectionSlider from '../components/SectionSlider/SectionSlider';
 
 function Home(props) {
-  const { currentUser } = useContext(UserContext);
-  const router = useRouter();
-
-  if (!currentUser) {
-    console.log(router);
-    router.push('/signIn');
-    return;
-  }
-
   return (
     <>
       <HeroHeader infoContentHeroHeader={props.dataHeroHeader} />

@@ -11,7 +11,7 @@ import {
 
 export default async function handler(req, res) {
   try {
-    const uid = req.body.uid;
+    const uid = req.cookies.token;
     const obj = req.body.obj;
     const q = query(collection(db, 'myList'), where('uid', '==', uid));
     const querySnapShot = await getDocs(q);

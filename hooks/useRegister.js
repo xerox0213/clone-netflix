@@ -1,6 +1,5 @@
-import { useState, useContext, useRef } from 'react';
-import { UserContext } from '../context/UserContext';
-import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import { useState, useRef } from 'react';
 
 function useRegister() {
   const [boxError, setBoxError] = useState({
@@ -12,8 +11,8 @@ function useRegister() {
     pwdInput: false,
     confirmPwdInput: false,
   });
-  const { createUser, currentUser, setCurrentUser } = useContext(UserContext);
   const inputsRef = useRef([]);
+  const router = useRouter();
 
   const addInputRef = (input) => {
     if (input && !inputsRef.current.includes(input)) {
@@ -62,19 +61,17 @@ function useRegister() {
     const password = passwordInput.value;
 
     try {
-      const user = await createUser(email, password);
-      form.reset();
-      setBoxError({ visible: false, message: '' });
-      const uid = user.user.uid;
-      await fetch('http://localhost:3000/api/database_api/createList', {
+      const typeFetch = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uid }),
-      });
-      Cookies.set('token', uid);
-      setCurrentUser(user);
+        body: JSON.stringify({ email, password }),
+      };
+      fetch('/api/user_api/register', typeFetch);
+      form.reset();
+      setBoxError({ visible: false, message: '' });
+      router.push('/home');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setBoxError({
@@ -119,14 +116,7 @@ function useRegister() {
     return confirmPwdValue && confirmPwdValue === passwordValue ? false : true;
   };
 
-  return [
-    errorInputs,
-    boxError,
-    handleBlur,
-    handleSubmit,
-    addInputRef,
-    currentUser,
-  ];
+  return [errorInputs, boxError, handleBlur, handleSubmit, addInputRef];
 }
 
 export default useRegister;

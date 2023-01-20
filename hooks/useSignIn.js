@@ -1,21 +1,17 @@
-import Cookies from 'js-cookie';
-import { useState, useContext, useRef } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useRouter } from 'next/router';
+import { useState, useRef } from 'react';
 
 function useSignIn() {
   const [boxError, setBoxError] = useState({
     visible: false,
     message: '',
   });
-
   const [errorInputs, setErrorInputs] = useState({
     emailInput: false,
     pwdInput: false,
   });
-
-  const { connectUser, currentUser, setCurrentUser } = useContext(UserContext);
-
   const refInputs = useRef([]);
+  const router = useRouter();
 
   const addInputRef = (input) => {
     if (input && !refInputs.current.includes(input)) {
@@ -74,12 +70,17 @@ function useSignIn() {
     const password = passwordInput.value;
 
     try {
-      const user = await connectUser(email, password);
+      const typeFetch = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      };
+      await fetch('/api/user_api/login', typeFetch);
       form.reset();
       setBoxError({ visible: false, message: '' });
-      const uid = user.user.uid;
-      Cookies.set('token', uid);
-      setCurrentUser(user);
+      router.push('/signIn');
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
         setBoxError({
@@ -108,14 +109,7 @@ function useSignIn() {
     }
   };
 
-  return [
-    errorInputs,
-    boxError,
-    handleBlur,
-    handleSubmit,
-    addInputRef,
-    currentUser,
-  ];
+  return [errorInputs, boxError, handleBlur, handleSubmit, addInputRef];
 }
 
 export default useSignIn;

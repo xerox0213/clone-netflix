@@ -1,27 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import Logo from '/public/assets/logo.png';
 import useSignIn from '../hooks/useSignIn';
 import styles from '/styles/Form.module.css';
 import BackgroundImage from '/public/assets/background.jpg';
 
 function SignIn() {
-  const [
-    errorInputs,
-    boxError,
-    handleBlur,
-    handleSubmit,
-    addInputRef,
-    currentUser,
-  ] = useSignIn();
-
-  const router = useRouter();
-
-  if (currentUser) {
-    router.push('/home');
-    return;
-  }
+  const [errorInputs, boxError, handleBlur, handleSubmit, addInputRef] =
+    useSignIn();
 
   return (
     <>
