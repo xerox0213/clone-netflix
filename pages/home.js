@@ -10,6 +10,7 @@ function Home(props) {
   const router = useRouter();
 
   if (!currentUser) {
+    console.log(router);
     router.push('/signIn');
     return;
   }
@@ -40,7 +41,7 @@ export async function getServerSideProps({ req }) {
     const earlyURL = 'https://api.themoviedb.org/3/';
 
     const myListDataRequest = await fetch(
-      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
+      'http://localhost:3000/api/database_api/getDataList',
       {
         method: 'GET',
         headers: {

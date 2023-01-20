@@ -66,19 +66,15 @@ function useRegister() {
       form.reset();
       setBoxError({ visible: false, message: '' });
       const uid = user.user.uid;
-      await fetch(
-        'https://clone-netflix-lovat-tau.vercel.app/api/database_api/createList',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ uid }),
-        }
-      );
+      await fetch('http://localhost:3000/api/database_api/createList', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uid }),
+      });
       Cookies.set('token', uid);
       setCurrentUser(user);
-      setDataIsLoaded(true);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setBoxError({
