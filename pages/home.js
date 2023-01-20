@@ -29,7 +29,7 @@ export async function getServerSideProps({ req }) {
     const earlyURL = 'https://api.themoviedb.org/3/';
 
     const myListDataRequest = await fetch(
-      'http://localhost:3000/api/database_api/getDataList',
+      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
       {
         method: 'GET',
         headers: {
