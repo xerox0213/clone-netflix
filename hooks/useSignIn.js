@@ -85,7 +85,7 @@ function useSignIn() {
         setBoxError({
           visible: true,
           message:
-            "Cet adresse email n'existe pas, saisissez une autre adresse email ou inscrivez-vous.",
+            "Cette adresse email n'existe pas, saisissez une autre adresse email ou inscrivez-vous.",
         });
       } else if (error.code === 'auth/wrong-password') {
         setBoxError({
