@@ -32,7 +32,9 @@ function Navbar({ position, refForm }) {
 
   const signOut = async () => {
     try {
-      await fetch('/api/user_api/logout');
+      await fetch('/api/user_api/logout', {
+        method: 'POST',
+      });
       dispatch(replaceList([]));
       redirectionPage('/signIn');
     } catch (error) {
