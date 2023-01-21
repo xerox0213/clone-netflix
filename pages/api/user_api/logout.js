@@ -4,7 +4,9 @@ import { signOut } from 'firebase/auth';
 
 export default async function handler(req, res) {
   try {
+    // Déconnexion de l'utilisateur
     await signOut(auth);
+    // Supression du cookie token en l'expirant
     res.setHeader(
       'Set-Cookie',
       cookie.serialize('token', '', {

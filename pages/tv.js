@@ -4,6 +4,7 @@ import useObserver from '../hooks/useObserver';
 import HeroHeader from '../components/HeroHeader/HeroHeader';
 import SectionSlider from '../components/SectionSlider/SectionSlider';
 import LoaderInfinite from '/components/LoaderInfinite/LoaderInfinite';
+import { getData } from './api/database_api/getDataList';
 
 function Tv(props) {
   const [state, fetchAPI, stateLoader] = useObserver(props.totalPages, 'tv');
@@ -37,21 +38,13 @@ export async function getServerSideProps({ req }) {
     const apiKey = 'c6a3bad00e21476c3f2e75f7e8893c2d';
     const earlyURL = 'https://api.themoviedb.org/3/';
 
-    // Récupère les films et séries ajouté à ma liste depuis le fichier JSON
-    const myListDataRequest = await fetch(
-      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
-      {
-        method: 'GET',
-        headers: {
-          cookie: req.cookies.token,
-        },
-      }
-    );
-    const { myListData } = await myListDataRequest.json();
+    // Récupère les films et séries ajouté à ma liste depuis Firebase
+    const uid = req.cookies.token;
+    const myListData = await getData(uid);
 
     // Récupère une série via un ID pour le hero header
     const serieHeroHeaderRequest = await fetch(
-      `${earlyURL}tv/86831?api_key=${apiKey}&language=fr-FR`
+      `${earlyURL}tv/77169?api_key=${apiKey}&language=fr-FR`
     );
     const serieHeroHeaderData = await serieHeroHeaderRequest.json();
 

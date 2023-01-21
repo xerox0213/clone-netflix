@@ -1,6 +1,7 @@
 import styles from '/styles/Home.module.css';
 import HeroHeader from '../components/HeroHeader/HeroHeader';
 import SectionSlider from '../components/SectionSlider/SectionSlider';
+import { getData } from './api/database_api/getDataList';
 
 function Home(props) {
   return (
@@ -28,16 +29,9 @@ export async function getServerSideProps({ req }) {
     const apiKey = 'c6a3bad00e21476c3f2e75f7e8893c2d';
     const earlyURL = 'https://api.themoviedb.org/3/';
 
-    const myListDataRequest = await fetch(
-      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
-      {
-        method: 'GET',
-        headers: {
-          cookie: req.cookies.token,
-        },
-      }
-    );
-    const { myListData } = await myListDataRequest.json();
+    // Récupère les films et séries ajouté à ma liste depuis Firebase
+    const uid = req.cookies.token;
+    const myListData = await getData(uid);
 
     const dataHeroHeaderRequest = await fetch(
       `${earlyURL}movie/877269?api_key=${apiKey}&language=fr-FR`

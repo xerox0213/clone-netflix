@@ -49,48 +49,34 @@ function ModalBox({ infoContentModalBox, isLocked, myListData }) {
   const handleClick = async () => {
     if (!isAddToMyList) {
       try {
-        const myInit = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            obj: infoContentModalBox,
-          }),
-        };
-        console.log(Cookies.get('token'));
-        await fetch(
-          'http://localhost:3000/api/database_api/addDataList',
-          myInit
-        );
+        await fetch('/api/database_api/addDataList', myInit);
         dispatch(addElement(infoContentModalBox));
         setIsAddToMyList(true);
       } catch (error) {
-        console.log('ERROR MODAL BOX ADD');
+        console.log('Erreur modal box ADD');
+        console.dir(error);
       }
     } else {
       try {
-        const myInit = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            obj: infoContentModalBox,
-          }),
-        };
-        await fetch(
-          'http://localhost:3000/api/database_api/removeDataList',
-          myInit
-        );
+        await fetch('/api/database_api/removeDataList', myInit);
         dispatch(deleteElement(infoContentModalBox.data.id));
         setIsAddToMyList(false);
       } catch (error) {
-        console.log('ERROR MODAL BOX REMOVE');
+        console.log('Erreur modal box REMOVE');
+        console.dir(error);
       }
     }
   };
 
+  const myInit = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      obj: infoContentModalBox,
+    }),
+  };
   const url = `https://image.tmdb.org/t/p/w500${infoContentModalBox.data.backdrop_path}`;
 
   return (

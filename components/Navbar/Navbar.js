@@ -84,25 +84,31 @@ function Navbar({ position, refForm }) {
           <a style={{ cursor: 'pointer' }}>Parcourir</a>
           <div className={styles.linksNavbar}>
             <Link
-              className={pathCurrentPage === '/home' && styles.active}
+              className={
+                pathCurrentPage === '/home' ? styles.active : undefined
+              }
               href='/home'
             >
               Accueil
             </Link>
             <Link
-              className={pathCurrentPage === '/tv' && styles.active}
+              className={pathCurrentPage === '/tv' ? styles.active : undefined}
               href='/tv'
             >
               Séries
             </Link>
             <Link
-              className={pathCurrentPage === '/movies' && styles.active}
+              className={
+                pathCurrentPage === '/movies' ? styles.active : undefined
+              }
               href='/movies'
             >
               Films
             </Link>
             <Link
-              className={pathCurrentPage === '/my-list' && styles.active}
+              className={
+                pathCurrentPage === '/my-list' ? styles.active : undefined
+              }
               href='/my-list'
             >
               Ma liste

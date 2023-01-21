@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '/components/Box/Box';
 import styles from '/styles/Search.module.css';
+import { getData } from './api/database_api/getDataList';
 
 function Search(props) {
   if (props.searchDataFiltered.length === 0) {
@@ -37,16 +38,8 @@ export async function getServerSideProps(context) {
     const querySearch = context.query.search;
 
     // Récupère les films et séries ajouté à ma liste dans Firebase
-    const myListDataRequest = await fetch(
-      'https://clone-netflix-lovat-tau.vercel.app/api/database_api/getDataList',
-      {
-        method: 'GET',
-        headers: {
-          cookie: context.req.cookies.token,
-        },
-      }
-    );
-    const { myListData } = await myListDataRequest.json();
+    const uid = req.cookies.token;
+    const myListData = await getData(uid);
 
     // Récupère les films / séries en fonction d'une recherche
     const searchRequest = await fetch(
