@@ -14,7 +14,8 @@ function MyList() {
     fetch('/api/database_api/getDataList')
       .then((res) => res.json())
       .then((obj) => {
-        dispatch(replaceList(obj.myListData));
+        console.log(obj.myDataList);
+        dispatch(replaceList(obj.myDataList));
       })
       .catch((error) => console.dir(error));
   }, []);

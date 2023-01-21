@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Cookies from 'js-cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { genres } from '../../genres';
 import { useDispatch } from 'react-redux';

@@ -71,7 +71,7 @@ function useRegister() {
       fetch('/api/user_api/register', typeFetch);
       form.reset();
       setBoxError({ visible: false, message: '' });
-      router.push('/home');
+      router.push('/signIn');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setBoxError({

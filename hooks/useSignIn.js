@@ -80,7 +80,7 @@ function useSignIn() {
       await fetch('/api/user_api/login', typeFetch);
       form.reset();
       setBoxError({ visible: false, message: '' });
-      router.push('/signIn');
+      router.push('/home');
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
         setBoxError({

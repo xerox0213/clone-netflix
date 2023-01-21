@@ -7,7 +7,8 @@ export default async function handler(req, res) {
     if (uid.includes('=')) {
       uid = uid.slice(uid.indexOf('=') + 1);
     }
-    const myDataList = await getData();
+    const myDataList = await getData(uid);
+
     res.status(200).json({ myDataList });
   } catch (error) {
     res.status(401).json(error);
@@ -18,11 +19,11 @@ export async function getData(uid) {
   try {
     const q = query(collection(db, 'myList'), where('uid', '==', uid));
     const querySnapShot = await getDocs(q);
-    let myListData;
+    let myDataList;
     querySnapShot.forEach((doc) => {
-      myListData = doc.data().list;
+      myDataList = doc.data().list;
     });
-    return myListData;
+    return myDataList;
   } catch (error) {
     return error;
   }

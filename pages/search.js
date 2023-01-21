@@ -32,10 +32,10 @@ function Search(props) {
 
 export default Search;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ req, query }) {
   try {
     // Objet (pas objet JS) de la recherche faites par l'utilisateur
-    const querySearch = context.query.search;
+    const querySearch = query.search;
 
     // Récupère les films et séries ajouté à ma liste dans Firebase
     const uid = req.cookies.token;
