@@ -1,63 +1,35 @@
-import { db } from '/firebase-config';
 import { NextResponse } from 'next/server';
-import { doc, getDoc } from 'firebase/firestore';
-import { noSSR } from 'next/dynamic';
 
-export async function middleware(req, res) {
+export async function middleware(req) {
+  // Récupère le chemin vers lequel on se dirige
   const whereIamGoing = req.nextUrl.clone().pathname;
+  // Vérifie si le cookie token existe
   const isCookieExisted = req.cookies.has('token');
 
-  if (isCookieExisted && (whereIamGoing !== '/' && whereIamGoing !== '/signIn')) {
+  if (isCookieExisted && whereIamGoing !== '/' && whereIamGoing !== '/signIn') {
+    // Passe au middleware suivant
     return NextResponse.next();
-  }else if(isCookieExisted && (whereIamGoing === '/' || whereIamGoing === "/signIn")){
+  } else if (
+    isCookieExisted &&
+    (whereIamGoing === '/' || whereIamGoing === '/signIn')
+  ) {
     const homeURL = new URL('/home', req.url);
-    return NextResponse.redirect(homeURL)
-  }else if(!isCookieExisted && (whereIamGoing === "/" || whereIamGoing === "/signIn")){
-    return NextResponse.next()
-  }else{
+    // Redirection vers la route privé home
+    return NextResponse.redirect(homeURL);
+  } else if (
+    !isCookieExisted &&
+    (whereIamGoing === '/' || whereIamGoing === '/signIn')
+  ) {
+    // Passe au middleware suivant
+    return NextResponse.next();
+  } else {
     const loginURL = new URL('/signIn', req.url);
+    // Redirection vers la route public signIn
     return NextResponse.redirect(loginURL);
   }
-
-
-  // if (
-  //   (whereIamGoing === '/' || whereIamGoing === '/signIn') &&
-  //   isCookieExisted
-  // ) {
-  //   const uid = req.cookies.get('token').value;
-  //   const docRef = doc(db, 'users', uid);
-  //   const docSnap = await getDoc(docRef);
-  //   if (docSnap.exists()) {
-  //     return NextResponse.redirect(new URL('/home', req.url));
-  //   }
-  // } else if (
-  //   (whereIamGoing === '/' || whereIamGoing === '/signIn') &&
-  //   isCookieExisted
-  // ) {
-  //   return;
-  // } else if (
-  //   (whereIamGoing === '/home' ||
-  //     whereIamGoing === '/tv' ||
-  //     whereIamGoing === '/movies' ||
-  //     whereIamGoing === '/my-list' ||
-  //     whereIamGoing.includes('/search') ||
-  //     whereIamGoing.includes('/watch')) &&
-  //   !isCookieExisted
-  // ) {
-  //   return NextResponse.redirect(new URL('/signIn', req.url));
-  // } else if (
-  //   (whereIamGoing === '/home' ||
-  //     whereIamGoing === '/tv' ||
-  //     whereIamGoing === '/movies' ||
-  //     whereIamGoing === '/my-list' ||
-  //     whereIamGoing === '/search' ||
-  //     whereIamGoing.includes('/watch')) &&
-  //   isCookieExisted
-  // ) {
-  //   return;
-  // }
 }
 
+// Permet de matcher toutes les routes pour lesquelles le middleware s'exécutera
 export const config = {
   matcher: [
     '/signIn',

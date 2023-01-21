@@ -38,7 +38,7 @@ export async function getServerSideProps({ req }) {
     const apiKey = 'c6a3bad00e21476c3f2e75f7e8893c2d';
     const earlyURL = 'https://api.themoviedb.org/3/';
 
-    // Récupère les films et séries ajouté à ma liste depuis Firebase
+    // Récupère les films et séries ajouté à l'espace my-list de l'utilisateur
     const uid = req.cookies.token;
     const myListData = await getData(uid);
 
@@ -83,6 +83,7 @@ export async function getServerSideProps({ req }) {
       'Histoire sombre',
     ];
 
+    // Refactorise l'agencement du tableau pour avoir des données utilisables.
     tvData = tvData.map((tv, index) => {
       return {
         titleSection: titleSection[index],
@@ -100,6 +101,7 @@ export async function getServerSideProps({ req }) {
       };
     });
 
+    // On ne garde que les éléments qui ont un backdrop_path existant
     tvData.forEach((dataSection) => {
       dataSection.content = dataSection.content.filter((dataSeries) => {
         return dataSeries.data.backdrop_path;

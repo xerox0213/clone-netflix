@@ -83,6 +83,7 @@ export async function getServerSideProps({ req }) {
       'Histoire sombre',
     ];
 
+    // Refactorise l'agencement du tableau pour avoir des données utilisables.
     moviesData = moviesData.map((movie, index) => {
       return {
         titleSection: titleSection[index],
@@ -100,6 +101,7 @@ export async function getServerSideProps({ req }) {
       };
     });
 
+    // On ne garde que les éléments qui ont un backdrop_path existant
     moviesData.forEach((dataSection) => {
       dataSection.content = dataSection.content.filter((dataMovie) => {
         return dataMovie.data.backdrop_path;

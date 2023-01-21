@@ -37,7 +37,7 @@ export async function getServerSideProps({ req, query }) {
     // Objet (pas objet JS) de la recherche faites par l'utilisateur
     const querySearch = query.search;
 
-    // Récupère les films et séries ajouté à ma liste dans Firebase
+    // Récupère les films et séries ajouté à l'espace my-list de l'utilisateur
     const uid = req.cookies.token;
     const myListData = await getData(uid);
 
@@ -54,6 +54,7 @@ export async function getServerSideProps({ req, query }) {
         elem.backdrop_path !== null
     );
 
+    // Refactorise l'agencement du tableau pour avoir des données utilisables.
     searchDataFiltered = searchDataFiltered.map((elem) => {
       return {
         mediaType: elem.media_type,

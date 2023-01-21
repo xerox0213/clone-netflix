@@ -4,17 +4,16 @@ import { replaceList } from '../store/redux';
 import styles from '/styles/MyList.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-// On fait du CSR -> Pas besoin d'indexer la page myList elle est personnelle à chaque user
+// On fait du CSR -> Pas besoin d'indexer la page myList elle est unique pour chaque utilisateur
 function MyList() {
   const myList = useSelector((state) => state.myList);
   const dispatch = useDispatch();
 
-  // Synchronisation des données venant de mon API avec le state redux pour avoir un qui se réactualise lorsqu'on ajoute ou supprime un élément
+  // Synchronisation des données venant de mon API avec le state redux pour que notre composant puisse se réactualiser lorsqu'on ajoute ou supprime un élément
   useEffect(() => {
     fetch('/api/database_api/getDataList')
       .then((res) => res.json())
       .then((obj) => {
-        console.log(obj.myDataList);
         dispatch(replaceList(obj.myDataList));
       })
       .catch((error) => console.dir(error));

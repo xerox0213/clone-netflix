@@ -19,6 +19,6 @@ export default async function handler(req, res) {
     );
     res.status(200).json({ code: 200 });
   } catch (error) {
-    res.status(401).json({ code: 401 });
+    res.status(401).json(error);
   }
 }

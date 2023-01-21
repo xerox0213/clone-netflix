@@ -29,16 +29,17 @@ export async function getServerSideProps({ req }) {
     const apiKey = 'c6a3bad00e21476c3f2e75f7e8893c2d';
     const earlyURL = 'https://api.themoviedb.org/3/';
 
-    // Récupère les films et séries ajouté à ma liste depuis Firebase
+    // Récupère les films et séries ajouté à l'espace my-list de l'utilisateur
     const uid = req.cookies.token;
     const myListData = await getData(uid);
 
+    // Requête pour récupérer les données nécessaire à l'affichage du hero header
     const dataHeroHeaderRequest = await fetch(
       `${earlyURL}movie/877269?api_key=${apiKey}&language=fr-FR`
     );
-
     const dataHeroHeader = await dataHeroHeaderRequest.json();
 
+    // Listing de toutes les URLS à utilisé pour récupérer les données de chaque box de chacun des sliders
     const URLS = [
       `${earlyURL}movie/popular?api_key=${apiKey}&language=fr-FR&page=1`,
       `${earlyURL}discover/tv?api_key=${apiKey}&language=fr-FR&page=1&with_type=4&with_networks=213&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&sort_by=popularity.desc`,
@@ -64,6 +65,7 @@ export async function getServerSideProps({ req }) {
       'Meilleurs documentaires',
     ];
 
+    // Refactorise l'agencement du tableau pour avoir des données utilisables.
     allData = allData.map((d, index) => {
       return {
         titleSection: titleSection[index],
